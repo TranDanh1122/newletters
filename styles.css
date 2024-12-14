@@ -8,12 +8,12 @@
 
 @font-face {
     font-family: "Roboto_Bold";
-    src: url(/assets/fonts/Roboto-Bold.ttf);
+    src: url(./assets/fonts/Roboto-Bold.ttf);
 }
 
 @font-face {
     font-family: "Roboto";
-    src: url(/assets/fonts/Roboto-Regular.ttf);
+    src: url(./assets/fonts/Roboto-Regular.ttf);
 }
 
 * {
@@ -100,7 +100,7 @@ main {
 }
 
 .form_info li::before {
-    content: url(/assets/images/icon-list.svg);
+    content: url(./assets/images/icon-list.svg);
     width: 1.25rem;
     height: 1.25rem;
     aspect-ratio: 1;
