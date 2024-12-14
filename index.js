@@ -1,27 +1,22 @@
-let inputEl = document.getElementById("email")
-let successBox = document.getElementById("success-box")
-let flipState = (state) => {
-    if (state) {
-        inputEl.classList.remove("error")
-        Array.from(document.getElementsByClassName("error")).forEach((item) => item.classList.add("hide"))
-        return true
-    }
-    inputEl.classList.add("error")
-    Array.from(document.getElementsByClassName("error")).forEach((item) => item.classList.remove("hide"))
-}
-let validate = (data) => {
-    if (!data.email) return false
-    return data.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
-}
+const getEl = (id) => document.getElementById(id);
+const [inputEl, successBox, cardEl, subscriptionForm, backBtn] = ["email", "success-box", "form-box", "subscription", "back"].map(getEl);
+const flipState = (state) => {
+    inputEl.classList.toggle("error", !state);
+    cardEl.classList.toggle("hide", state);
+    successBox.classList.toggle("hide", !state);
+    document.querySelectorAll(".error").forEach(el => el.classList.toggle("hide", state));
+};
+const validate = (data) => data.email?.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    const isValid = validate(data);
+    if(isValid) {
+        inputEl.value = "";
+        //subscriptionForm.submit()
+    } 
+    flipState(isValid);
+};
 
-
-let subscriptionForm = document.getElementById("subscription")
-let hanldeSubmit = (e) => {
-    e.preventDefault()
-    let data = Object.fromEntries(new FormData(e.target));
-    let isValid = validate(data);
-    console.log(subscriptionForm)
-    if (isValid) subscriptionForm.submit()
-    flipState(isValid)
-}
-subscriptionForm.addEventListener("submit", hanldeSubmit);
+subscriptionForm.addEventListener("submit", handleSubmit);
+backBtn.addEventListener("click" , () => flipState(false))
